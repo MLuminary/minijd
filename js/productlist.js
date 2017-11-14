@@ -65,20 +65,23 @@ $(function () {
             success: function (data) {
                 var html = "";
                 for (var i = 0; i < data.length; i++) {
-                    for (var j = 0; j < data[i].length; j++) {
-                        html += 
-                           `<li>
-                                <a href=""><img src="images/phone/phone_01.jpg" alt=""/></a>
-                                <p>￥1199.00</p>
-                                <h1><a href="">小米 Note 全网通 白色 移动联通电信4G手机 双卡双待</a></h1>
-                                <div>
-                                    <a href="" class="contrast"><i></i>对比</a>
-                                    <a href="" class="p-operate"><i></i>关注</a>
-                                    <a href="" class="addcart"><i></i>加入购物车</a>
-                                </div>
-                            </li>`
-                    }
+                    var obj = data[i];
+                    var imgSrc = obj.pic,
+                        Price = obj.price,
+                        des = obj.pname;
+                    html +=
+                    `<li>
+                            <a href=""><img src="${imgSrc}" alt=""/></a>
+                            <p>￥${Price}</p>
+                            <h1><a href="">${des}</a></h1>
+                            <div>
+                                <a href="" class="contrast"><i></i>对比</a>
+                                <a href="" class="p-operate"><i></i>关注</a>
+                                <a href="" class="addcart"><i></i>加入购物车</a>
+                            </div>
+                    </li>`
                 }
+                $('#plist ul').html(html);
             },
             error: function (error) {
                 // console.log(error);
