@@ -12,6 +12,8 @@
    
     $row = mysqli_fetch_assoc($result);
     if($row){
+        $_SESSION['uname'] = $uname;
+        $_SESSION['upwd'] = $upwd;
         $_SESSION['loginstate'] = 1;
         echo $uname;
     }else{
