@@ -58,9 +58,6 @@ INSERT INTO jd_product VALUES
 (35,'三星 Galaxy On5（G5500）金色 移动联通4G手机 真皮质感后盖，2600毫安大容量',699.00,'images/phone/phone_35.jpg'),
 (36,'OPPO A37 2GB+16GB内存版 玫瑰金 全网通4G手机 双卡双待 【赠品任你选】',1299.00,'images/phone/phone_36.jpg');
 
-
-#创建购物车表并且添加二条测试数据
-9:40---9:48
 CREATE TABLE jd_cart(
  id INT PRIMARY KEY AUTO_INCREMENT, 
  uid       INT,
