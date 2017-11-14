@@ -8,7 +8,7 @@ header('Content-Type: text/html;charset=UTF-8');
 		<a href="#">收藏京东</a>
 		<div class="rt">   
 			<ul>
-				<li id="welcome">您好，欢迎来到京东！<a href="#" >[登录]</a> <a href="#" >[免费注册]</a></li> 
+				<li id="welcome">您好，欢迎来到京东！<span class="user"><a class="user_name" href="#"></a><a class="user_quit" href="#">退出</a></span><span class="login_show"><a href="#" >[登录]</a> <a href="#" >[免费注册]</a></span></li> 
 			</ul>
 		</div>	
 	</div>	

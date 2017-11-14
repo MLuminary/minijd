@@ -134,6 +134,15 @@ li.service>a:hover {
     margin:0px;
 }
 
+#header .user .user_name {
+    margin-right: 5px;
+}
+#header .user {
+    
+    display: none;
+}
+
+
 /**************************V03***********************************/
 /*������*/
 #search_box {
