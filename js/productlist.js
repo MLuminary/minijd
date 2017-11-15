@@ -68,7 +68,8 @@ $(function () {
                     var obj = data[i];
                     var imgSrc = obj.pic,
                         Price = obj.price,
-                        des = obj.pname;
+                        des = obj.pname,
+                        pid = obj.pid;
                     html +=
                     `<li>
                             <a href=""><img src="${imgSrc}" alt=""/></a>
@@ -77,7 +78,7 @@ $(function () {
                             <div>
                                 <a href="" class="contrast"><i></i>对比</a>
                                 <a href="" class="p-operate"><i></i>关注</a>
-                                <a href="" class="addcart"><i></i>加入购物车</a>
+                                <a href="${pid}" class="addcart"><i></i>加入购物车</a>
                             </div>
                     </li>`
                 }
@@ -89,6 +90,26 @@ $(function () {
             }
         })
     }
+
+
+    //点击添加到购物车
+    //利用事件委托
+    $("#plist").on('click','a.addcart',function(e){
+        //取消默认事件
+        e.preventDefault();
+        //获得pid
+        var pid = $(this).attr('href');
+        $.ajax({
+            type:'get',
+            url:'data/add_cart.php',
+            success:function(data){
+                
+            },
+            error:function(error){
+                alert("请检查网络");
+            }
+        })
+    })
 
 
 
