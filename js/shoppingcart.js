@@ -23,18 +23,6 @@ $(function () {
                     //登录按钮消失
                     $('.login_show').hide();
                     $('.modal').hide();
-                    //注销登录
-                    $('.user_quit').click(function () {
-                        $.ajax({
-                            url: 'data/login_out.php',
-                            success: function (data) {
-                                window.location.href = "productlist.html";
-                            },
-                            error: function (error) {
-                                alert("请检查网络!")
-                            }
-                        })
-                    })
                 } else {
                     window.location.href = "productlist.html";
                 }
@@ -44,6 +32,23 @@ $(function () {
             }
         })
     }
+
+    //事件委托绑定注销事件
+    $("#header").on('click', 'a.user_quit', function (e) {
+        e.preventDefault();
+        //注销登录
+        $('.user_quit').click(function () {
+            $.ajax({
+                url: 'data/login_out.php',
+                success: function (data) {
+                    window.location.href = "productlist.html";
+                },
+                error: function (error) {
+                    alert("请检查网络!")
+                }
+            })
+        })
+    })
 
     //展示购物车内容
     showCart();
@@ -61,7 +66,7 @@ $(function () {
                     <tr>
                         <td>
                             <input type="checkbox"/>
-                            <input type="hidden" value="${obj.id}"/>
+                            <input type="hidden" value="${obj.productid}"/>
                             <div><img src="${obj.pic}" alt=""/></div>
                         </td>
                         <td><a href="">${obj.pname}</a></td>
@@ -69,8 +74,8 @@ $(function () {
                         <td>
                             <button>-</button><input type="text" value="${obj.count}"/><button>+</button>
                         </td>
-                        <td><span>￥${obj.count*obj.price}</span></td>
-                        <td><a href="${obj.id}">删除</a></td>
+                        <td><span>￥${obj.count * obj.price}</span></td>
+                        <td><a href="${obj.productid}">删除</a></td>
                     </tr>`
                 }
                 $("#cart tbody").html(html);
@@ -83,13 +88,58 @@ $(function () {
     }
     //删除购物车中的商品
     cartDel();
-    function cartDel(){
-        $('#cart').on('click','a:contains("删除")',function(e){
+    function cartDel() {
+        $('#cart').on('click', 'a:contains("删除")', function (e) {
             e.preventDefault();
             var pid = $(this).attr('href');
-            
-            
+            var that = this;
+            $.ajax({
+                type: 'get',
+                url: 'data/del_cart.php',
+                data: { uid: getCookieVal('uid'), pid: pid },
+                success: function (data) {
+                    if (data > 0) {
+                        alert("删除成功!");
+                        $(that).parent().parent().remove();
+                    } else {
+                        alert("删除失败!");
+                    }
+                },
+                error: function (error) {
+                    console.log("请检查网络！")
+                }
+            })
+
         })
+    }
+    //点击加减按钮更新购物车的数量
+    $('#cart tbody').on('click', 'button', function () {
+        var btn = $(this);
+        var stotal = btn.parent().next().children().first();
+        var price = btn.parent().prev();
+        if (btn.text() == '+') {
+            btn.prev().val(parseInt(btn.prev().val()) + 1);
+            stotal.text("￥" + (parseFloat(price.text()) * parseInt(btn.prev().val())));
+            // updateCartNum(1);
+        } else {
+            if (parseInt(btn.next().val()) <= 1) {
+                return;
+            } else {
+                btn.next().val(parseInt(btn.next().val()) - 1);   
+                stotal.text("￥" + (parseFloat(price.text()) * parseInt(btn.next().val())));
+            }
+
+            // updateCartNum(-1);
+        }
+    });
+
+    // updateCartNum(num);
+    /**
+     * 
+     * @param {*1 为增加 -1为减少} num 
+     */
+    function updateCartNum(num) {
+        console.log(num);
     }
 
 

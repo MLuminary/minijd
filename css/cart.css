@@ -64,6 +64,7 @@
     padding:0;
     background-color: #fff;
     box-sizing:content-box;
+    cursor: pointer;
 }
 #cart_footer{
     position: fixed;

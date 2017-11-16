@@ -3,7 +3,6 @@
     session_start();
     @$uname = $_REQUEST['uname'] or die('uname');
     @$upwd = $_REQUEST['upwd'] or die('upwd');
-    $_SESSION['loginstate'] = 0;
     
     require('init.php');
 
@@ -18,6 +17,7 @@
         echo $row['id'];
     }else{
         //用户帐号密码不匹配
+        $_SESSION['loginstate'] = 0;
         echo -1;
     }
 ?>
