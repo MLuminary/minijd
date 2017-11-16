@@ -1,8 +1,8 @@
 <?php
     header("Content-Type:text/plain,charset=utf-8");
     // 传入用户的编号和购买商品的编号
-    @$uid = $_REQUEST['uid'] or die('uid');
-    @$pid = $_REQUEST['pid'] or die('pid');
+    @$uid = $_REQUEST['uid'] or die("-1");
+    @$pid = $_REQUEST['pid'] or die("-2");
 
     require('init.php');
     //先查询当前用户购物车中是否有该商品
@@ -23,5 +23,6 @@
         $result = mysqli_query($conn,$sql);
         $count = 1;
     }
+    echo $count;
 
 ?>

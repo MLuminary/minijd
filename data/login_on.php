@@ -7,7 +7,7 @@
     
     require('init.php');
 
-    $sql = "SELECT uname,upwd FROM t_login WHERE uname = '$uname' and upwd = '$upwd'";
+    $sql = "SELECT id FROM t_login WHERE uname = '$uname' and upwd = '$upwd'";
     $result = mysqli_query($conn,$sql);
    
     $row = mysqli_fetch_assoc($result);
@@ -15,7 +15,7 @@
         $_SESSION['uname'] = $uname;
         $_SESSION['upwd'] = $upwd;
         $_SESSION['loginstate'] = 1;
-        echo $uname;
+        echo $row['id'];
     }else{
         //用户帐号密码不匹配
         echo -1;

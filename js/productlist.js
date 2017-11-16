@@ -27,9 +27,12 @@ $(function () {
                 if (data == -1) {
                     $('p.alert').html("用户名或密码有误");
                 } else {
+                    //将用户和名字存入cookie
+                    document.cookie = 'uid='+data;
+                    document.cookie = 'uname='+u;
                     //用户信息和退出按钮出现并绑定事件
                     $('.user').show();
-                    $('.user .user_name').text(data);
+                    $('.user .user_name').text(u);
                     //注销登录
                     $('.user_quit').click(function () {
                         $.ajax({
@@ -97,21 +100,24 @@ $(function () {
     $("#plist").on('click','a.addcart',function(e){
         //取消默认事件
         e.preventDefault();
-        //获得pid
+        // 获得pid
         var pid = $(this).attr('href');
         $.ajax({
-            type:'get',
+            type:'post',
             url:'data/add_cart.php',
+            data:{uid:getCookieVal('uid'),pid:pid},
             success:function(data){
-                
+                if(data>0){
+                    alert("添加成功!该商品己购买"+data);
+                 }else{
+                    alert("添加失败");
+                 }
             },
             error:function(error){
                 alert("请检查网络");
             }
         })
     })
-
-
 
 
 

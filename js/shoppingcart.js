@@ -45,4 +45,53 @@ $(function () {
         })
     }
 
+    //展示购物车内容
+    showCart();
+    function showCart() {
+        $.ajax({
+            type: 'post',
+            url: 'data/cart_list.php',
+            data: { uid: getCookieVal('uid') },
+            success: function (data) {
+                // console.log(data);
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    var obj = data[i];
+                    html += `
+                    <tr>
+                        <td>
+                            <input type="checkbox"/>
+                            <input type="hidden" value="${obj.id}"/>
+                            <div><img src="${obj.pic}" alt=""/></div>
+                        </td>
+                        <td><a href="">${obj.pname}</a></td>
+                        <td>${obj.price}</td>
+                        <td>
+                            <button>-</button><input type="text" value="${obj.count}"/><button>+</button>
+                        </td>
+                        <td><span>￥${obj.count*obj.price}</span></td>
+                        <td><a href="${obj.id}">删除</a></td>
+                    </tr>`
+                }
+                $("#cart tbody").html(html);
+
+            },
+            error: function (error) {
+                alert("请检查网络");
+            }
+        })
+    }
+    //删除购物车中的商品
+    cartDel();
+    function cartDel(){
+        $('#cart').on('click','a:contains("删除")',function(e){
+            e.preventDefault();
+            var pid = $(this).attr('href');
+            
+            
+        })
+    }
+
+
+
 })
