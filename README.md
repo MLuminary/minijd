@@ -35,8 +35,8 @@ $("#plist").on('click','a.addcart',function(e){
 
 先查询用户是否购买过此商品
 
-没有购买过此商品{
+没有购买过此商品``{
     insert 
 }else{
     update
-}
+}``
